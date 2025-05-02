@@ -2,7 +2,7 @@ import React from "react";
 
 export default function loading() {
   return (
-    <div>
+    <div className="px-56 py-8">
       <div className="w-8/12 mx-auto">
         <div className="animate-pulse flex space-x-4 mb-4">
           <div className="flex-1 space-y-6 py-1">

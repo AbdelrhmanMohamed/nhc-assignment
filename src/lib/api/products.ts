@@ -1,18 +1,56 @@
 import { ProductRoutes } from "@/constants/routes";
-import { IProduct } from "@/types/product";
+import { IProduct, IProductResponse } from "@/types/product";
 
 const API_BASE_URL = process.env.API_BASE_URL || "https://dummyjson.com";
 
-export async function getAllProducts(searchValue: string): Promise<IProduct[]> {
-  const data = await fetch(
-    `${API_BASE_URL}${ProductRoutes.SEARCH}${searchValue}&delay=1000`,
-    {
-      next: { revalidate: 60 },
+/**
+ * Fetches all products from the API based on the search value.
+ * @param searchValue - The search term to filter products.
+ * @returns A promise that resolves to an object containing the products, total count, and limit.
+ */
+
+export async function getAllProducts(
+  searchValue: string
+): Promise<IProductResponse> {
+  try {
+    if (!searchValue) {
+      return { products: [], total: 0, limit: 0, skip: 0 };
     }
-  );
-  if (!data.ok) {
+    const response = await fetch(
+      `${API_BASE_URL}${ProductRoutes.SEARCH}${searchValue}&delay=1000`,
+      {
+        next: { revalidate: 60 },
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch products");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching products:", error);
     throw new Error("Failed to fetch products");
   }
-  const { products } = await data.json();
-  return products;
+}
+
+/**
+ * Fetches a single product by its ID from the API.
+ * @param id - The ID of the product to fetch.
+ * @returns A promise that resolves to the product object or null if not found.
+ */
+
+export async function getProduct(id: string): Promise<IProduct | null> {
+  try {
+    const data = await fetch(`${API_BASE_URL}${ProductRoutes.BASE}/${id}`, {
+      next: { revalidate: 60 },
+    });
+    if (!data.ok) {
+      throw new Error("Failed to fetch product");
+    }
+    const product = await data.json();
+    return product;
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    return null;
+  }
 }

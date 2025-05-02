@@ -14,8 +14,8 @@ export const metadata = {
 
 export default async function Product(props: { searchParams: SearchParams }) {
   const { query } = await props.searchParams;
-  const searchValue = query ?? "";
-  const products = await getAllProducts(searchValue as string);
+  const searchValue = query ? query : "";
+  const { products, total } = await getAllProducts(searchValue as string);
 
   return (
     <div className="px-56 py-8">
@@ -24,9 +24,7 @@ export default async function Product(props: { searchParams: SearchParams }) {
         {searchValue && (
           <p className="text-lg  mb-2 mt-4">
             Total results count:{" "}
-            <span className="font-bold text-primary">
-              {products?.length || 0}
-            </span>
+            <span className="font-bold text-primary">{total}</span>
           </p>
         )}
       </div>
