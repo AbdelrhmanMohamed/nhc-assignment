@@ -1,7 +1,18 @@
 import React from "react";
-import { LINKS } from "@/constants/links";
 import LinkItem from "./link-item";
 import Logo from "../logo";
+import { Link_Item } from "@/types/link";
+
+export const LINKS: Link_Item[] = [
+  {
+    id: "products",
+    name: "Products",
+  },
+  {
+    id: "about",
+    name: "About",
+  },
+];
 
 export default function Header() {
   return (
