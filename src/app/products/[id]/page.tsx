@@ -4,8 +4,6 @@ import ProductDetails from "@/components/products/product-details";
 
 type Params = Promise<{ id: string }>;
 
-export const revalidate = 60;
-
 export async function generateMetadata(props: { params: Params }) {
   const params = await props.params;
   if (!params.id) return {};

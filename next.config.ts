@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
   images: {
     domains: ["cdn.dummyjson.com"],
   },
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
 };
 
 export default nextConfig;
