@@ -5,10 +5,10 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <div className="h-32 px-28 pt-12 pb-5 bg-footer text-white">
-      <Separator className="mb-2 text-gray-50 opacity-20" />
-      <div className="flex justify-between items-center h-full">
-        <div className="flex items-center gap-8">
+    <div className="px-4 sm:px-8 md:px-16 lg:px-28 pt-12 pb-5 bg-footer text-white">
+      <Separator className="mb-4 opacity-20" />
+      <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-center h-full">
+        <div className="flex items-center gap-4 sm:gap-8">
           <Logo variant="white" className="w-[30px] h-[32px]" />
           <Image
             src="/assets/vision2030-white.svg"
@@ -17,8 +17,8 @@ export default function Footer() {
             alt="vision 2030"
           />
         </div>
-        <div className="text-sm text-white">
-          All rights reserved © 2022 - Developed and operated by National
+        <div className="text-sm text-white text-center md:text-right">
+          All rights reserved © 2022 – Developed and operated by National
           Housing
         </div>
       </div>

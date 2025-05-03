@@ -25,7 +25,7 @@ export default function ProductCardPreview({
         />
       </div>
       {/* Product Details */}
-      <div className="grid grid-cols-2 gap-16 mt-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-16 mt-4">
         <div className="space-y-4">
           <Detail label="Price" value={`$${product.price}`} />
           <div className="flex items-center gap-2">

@@ -25,7 +25,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       {/* Product Images */}
       <div className="max-w-4xl mx-auto space-y-4">
         <h3 className="text-xl font-semibold">Product Images</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {product.images.map((image, index) => (
             <div
               key={index}

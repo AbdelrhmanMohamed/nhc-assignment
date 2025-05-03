@@ -8,7 +8,9 @@ function LinkItem({ id, name }: Link_Item) {
   const pathName = usePathname();
 
   const isActive = (path: string) => {
-    return pathName === path ? "text-primary font-semibold" : "text-black";
+    return pathName.startsWith(path)
+      ? "text-primary font-semibold"
+      : "text-black";
   };
   return (
     <Link

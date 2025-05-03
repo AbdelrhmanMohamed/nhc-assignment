@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function ProductEmptyState() {
   return (
-    <div className="flex flex-col items-center justify-center text-center mb-24 text-lg text-gray-600">
+    <div className="flex flex-col mt-16 items-center justify-center text-center mb-24 text-lg text-gray-600">
       <Image
         src="/assets/empty-state.svg"
         alt="empty state"

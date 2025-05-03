@@ -1,3 +1,4 @@
+import { LIMIT } from "@/constants/common";
 import { ProductRoutes } from "@/constants/routes";
 import { IProduct, IProductResponse } from "@/types/product";
 
@@ -9,27 +10,31 @@ const API_BASE_URL = process.env.API_BASE_URL || "https://dummyjson.com";
  * @returns A promise that resolves to an object containing the products, total count, and limit.
  */
 
-export async function getAllProducts(
-  searchValue: string
+export async function searchProducts(
+  searchValue: string,
+  limit: number = LIMIT,
+  skip: number = 0
 ): Promise<IProductResponse> {
   try {
     if (!searchValue) {
       return { products: [], total: 0, limit: 0, skip: 0 };
     }
     const response = await fetch(
-      `${API_BASE_URL}${ProductRoutes.SEARCH}${searchValue}&delay=1000`,
+      `${API_BASE_URL}${ProductRoutes.SEARCH}${searchValue}&limit=${limit}&skip=${skip}`,
       {
         next: { revalidate: 60 },
       }
     );
     if (!response.ok) {
-      throw new Error("Failed to fetch products");
+      const errMsg = await response.text();
+      console.error("Error fetching products:", errMsg);
+      return { products: [], total: 0, limit: 0, skip: 0 };
     }
     const data = await response.json();
     return data;
   } catch (error) {
     console.error("Error fetching products:", error);
-    throw new Error("Failed to fetch products");
+    return { products: [], total: 0, limit: 0, skip: 0 };
   }
 }
 

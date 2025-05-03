@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function AboutUs() {
   return (
-    <div className="px-44 pt-16">
+    <div className="px-6 md:px-20 lg:px-32 xl:px-44 pt-16">
       <div className="text-center mb-8">
         <Logo width={242} height={250} className="inline-block" />
       </div>

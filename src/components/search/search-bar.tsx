@@ -1,33 +1,27 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useMemo } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Search } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { createQueryString } from "@/lib/helpers/searh-params";
+import { debounce } from "@/lib/utils";
 
 export default function SearchBar() {
-  const [searchValue, setSearchValue] = React.useState<string>("");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // Handle search input change
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setSearchValue(value);
-    const queryString = createQueryString(searchParams, "query", value);
-    router.push(`${pathname}?${queryString}`);
-  };
+  const debouncedHandleSearch = useMemo(() => {
+    return debounce((value: string) => {
+      const queryString = createQueryString(searchParams, "query", value);
+      router.push(`${pathname}?${queryString}`);
+    }, 200);
+  }, [searchParams, pathname, router]);
 
-  //set search value from query string
-  useEffect(() => {
-    if (searchParams.has("query")) {
-      setSearchValue(searchParams.get("query") as string);
-    } else {
-      setSearchValue("");
-    }
-  }, [searchParams]);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    debouncedHandleSearch(event.target.value);
+  };
 
   return (
     <>
@@ -42,9 +36,8 @@ export default function SearchBar() {
         endIcon={<Search className="text-gray-500 size-4" />}
         placeholder="Search keyword"
         className="py-6"
-        onChange={handleSearch}
-        value={searchValue}
-        // onFocus={() => setSearchValue("")}
+        onChange={handleChange}
+        defaultValue={searchParams.get("query") ?? ""}
         type="text"
       />
     </>

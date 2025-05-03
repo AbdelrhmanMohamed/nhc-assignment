@@ -2,18 +2,27 @@ import { notFound } from "next/navigation";
 import { getProduct } from "@/lib/api/products";
 import ProductDetails from "@/components/product/product-details";
 
-export async function generateMetadata({ params }: { params: { id: string } }) {
+type Params = Promise<{ id: string }>;
+
+export async function generateMetadata(props: { params: Params }) {
+  const params = await props.params;
+  if (!params.id) return {};
   const product = await getProduct(params.id);
   if (!product) return {};
   return {
     title: `${product.title} | MyStore`,
     description: product.description,
+    keywords: [
+      product.category,
+      product.brand,
+      product.tags.join(", "),
+      "ecommerce",
+      "shopping",
+    ],
   };
 }
 
-export default async function ProductDetailsPage(props: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function ProductDetailsPage(props: { params: Params }) {
   const params = await props.params;
   const product = await getProduct(params.id);
   if (!product) {
