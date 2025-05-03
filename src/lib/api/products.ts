@@ -46,9 +46,7 @@ export async function searchProducts(
 
 export async function getProduct(id: string): Promise<IProduct | null> {
   try {
-    const data = await fetch(`${API_BASE_URL}${ProductRoutes.BASE}/${id}`, {
-      next: { revalidate: 60 },
-    });
+    const data = await fetch(`${API_BASE_URL}${ProductRoutes.BASE}/${id}`);
     if (!data.ok) {
       throw new Error("Failed to fetch product");
     }
