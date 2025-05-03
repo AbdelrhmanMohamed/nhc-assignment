@@ -7,8 +7,8 @@ export default function Loading() {
       <Skeleton className="h-8 w-48 mx-auto mb-8" />
 
       {/* Product Image Skeleton */}
-      <div className="max-w-3xl mx-auto mb-10">
-        <Skeleton className="w-full h-[400px] rounded-lg" />
+      <div className="max-w-xl mx-auto mb-10">
+        <Skeleton className="w-full h-[300px] rounded" />
       </div>
 
       {/* Product Details Skeleton */}

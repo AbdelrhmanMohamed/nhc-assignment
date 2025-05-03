@@ -1,25 +1,20 @@
 import { notFound } from "next/navigation";
-import { getProduct } from "@/lib/api/products";
+import { getProduct, getProducts } from "@/lib/api/products";
 import ProductDetails from "@/components/products/product-details";
+import { getProductMetadata } from "@/lib/metadata/product";
 
 type Params = Promise<{ id: string }>;
 
+export const revalidate = 60; // Revalidate every 60 seconds
+
 export async function generateMetadata(props: { params: Params }) {
   const params = await props.params;
-  if (!params.id) return {};
-  const product = await getProduct(params.id);
-  if (!product) return {};
-  return {
-    title: `${product.title} | MyStore`,
-    description: product.description,
-    keywords: [
-      product.category,
-      product.brand,
-      product.tags.join(", "),
-      "ecommerce",
-      "shopping",
-    ],
-  };
+  return getProductMetadata(params.id); // Fetch metadata for the product
+}
+
+export async function generateStaticParams() {
+  const products = await getProducts(); // Fetch all products to generate static params
+  return products.map((product) => ({ id: String(product.id) }));
 }
 
 export default async function ProductDetailsPage(props: { params: Params }) {

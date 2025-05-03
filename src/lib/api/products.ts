@@ -47,10 +47,7 @@ export async function searchProducts(
 export async function getProduct(id: string): Promise<IProduct | null> {
   try {
     const data = await fetch(
-      `${API_BASE_URL}${ProductRoutes.BASE}/${id}?delay=1000`,
-      {
-        next: { revalidate: 60 },
-      }
+      `${API_BASE_URL}${ProductRoutes.BASE}/${id}?delay=1000`
     );
     if (!data.ok) {
       throw new Error("Failed to fetch product");
@@ -60,5 +57,23 @@ export async function getProduct(id: string): Promise<IProduct | null> {
   } catch (error) {
     console.error("Error fetching product:", error);
     return null;
+  }
+}
+
+/**
+ * Fetches all products from the API.
+ * @returns A promise that resolves to an array of products.
+ */
+export async function getProducts(): Promise<IProduct[]> {
+  try {
+    const response = await fetch(`${API_BASE_URL}${ProductRoutes.BASE}`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch products");
+    }
+    const data = await response.json();
+    return data.products;
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return [];
   }
 }
