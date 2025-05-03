@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getProduct } from "@/lib/api/products";
-import ProductDetails from "@/components/product/product-details";
+import ProductDetails from "@/components/products/product-details";
 
 type Params = Promise<{ id: string }>;
 

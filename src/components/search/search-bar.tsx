@@ -4,20 +4,21 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Search } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { createQueryString } from "@/lib/helpers/searh-params";
 import { debounce } from "@/lib/utils";
+import { useQueryString } from "@/hooks/useQueryString";
 
 export default function SearchBar() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const createQueryString = useQueryString();
 
   const debouncedHandleSearch = useMemo(() => {
     return debounce((value: string) => {
-      const queryString = createQueryString(searchParams, "query", value);
+      const queryString = createQueryString("query", value);
       router.push(`${pathname}?${queryString}`);
     }, 200);
-  }, [searchParams, pathname, router]);
+  }, [createQueryString, router, pathname]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     debouncedHandleSearch(event.target.value);

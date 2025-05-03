@@ -1,22 +1,17 @@
-import React from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export default function loading() {
+export default function Loading() {
   return (
-    <div className="px-56 py-8">
-      <div className="w-8/12 mx-auto">
-        <div className="animate-pulse flex space-x-4 mb-4">
-          <div className="flex-1 space-y-6 py-1">
-            <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-            <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-          </div>
+    <div className="px-4 sm:px-8 md:px-16 lg:px-32 xl:px-56 py-8">
+      <div className="w-full md:w-8/12 mx-auto">
+        <div className="flex flex-col space-y-3 mb-4">
+          <Skeleton className="h-4 w-3/4 rounded" />
+          <Skeleton className="h-4 w-1/2 rounded" />
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-8 mb-24 mt-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8 mt-8">
         {Array.from({ length: 6 }).map((_, index) => (
-          <div
-            key={index}
-            className="animate-pulse bg-gray-200 h-[300px] rounded"
-          ></div>
+          <Skeleton key={index} className="h-[300px] rounded" />
         ))}
       </div>
     </div>

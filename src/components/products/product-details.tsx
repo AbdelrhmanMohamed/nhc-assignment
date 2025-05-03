@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { IProduct } from "@/types/product";
-import ProductCardPreview from "./product-card-preview";
+import ProductDetailsCard from "./product-details-card";
 
 type ProductDetailsProps = {
   product: IProduct;
@@ -11,7 +11,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   return (
     <div className="space-y-12 text-lg">
       <div className="max-w-lg mx-auto">
-        <ProductCardPreview product={product} />
+        <ProductDetailsCard product={product} />
       </div>
 
       {/* Product Description */}

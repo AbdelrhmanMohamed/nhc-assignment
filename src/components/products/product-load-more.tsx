@@ -1,13 +1,10 @@
 "use client";
-
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useInView } from "react-intersection-observer";
 import { useSearchParams } from "next/navigation";
-
 import { LIMIT } from "@/constants/common";
 import { searchProducts } from "@/lib/api/products";
 import { IProduct } from "@/types/product";
-
 import ProductCard from "./product-card";
 import Spinner from "../ui/sppiner";
 
@@ -53,7 +50,7 @@ export default function LoadMoreProducts() {
   }, [inView, hasMore, fetchMoreProducts]);
 
   return (
-    <div>
+    <div className="mx-auto w-full">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 mt-8">
         {products.map((product) => (
           <ProductCard key={product.title} product={product} />
@@ -61,11 +58,10 @@ export default function LoadMoreProducts() {
       </div>
 
       {hasMore && (
-        <div ref={ref} className="text-center p-4 text-gray-500">
-          <Spinner />
+        <div ref={ref} className="flex justify-center text-primary">
+          <Spinner size={36} />
         </div>
       )}
-
       {!hasMore && totalResults > 0 && (
         <div className="text-center text-lg text-gray-500">
           No more products!

@@ -1,7 +1,7 @@
 import React from "react";
-import LoadMoreProducts from "@/components/product/load-more";
-import ProductCard from "@/components/product/product-card";
-import ProductEmptyState from "@/components/product/product-empty-state";
+import LoadMoreProducts from "@/components/products/product-load-more";
+import ProductCard from "@/components/products/product-card";
+import ProductEmptyState from "@/components/products/product-empty-state";
 import SearchBar from "@/components/search/search-bar";
 import { searchProducts } from "@/lib/api/products";
 import { SearchParams } from "@/types/common";
