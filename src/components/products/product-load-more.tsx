@@ -49,6 +49,13 @@ export default function LoadMoreProducts() {
     }
   }, [inView, hasMore, fetchMoreProducts]);
 
+  // Reset products when the search query changes
+  useEffect(() => {
+    setProducts([]);
+    setHasMore(true);
+    skip.current = LIMIT;
+  }, [query]);
+
   return (
     <div className="mx-auto w-full">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 mt-8">
