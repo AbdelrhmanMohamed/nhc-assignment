@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function Loading() {
+export default function loading() {
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Product Title Skeleton */}
